@@ -8,6 +8,7 @@ const messagesRouter = require('./routes/messagesRoutes');
 const departmentsRouter = require('./routes/departmentsRoutes');
 const breedsRouter = require('./routes/breedsRoutes');
 const postsRouter = require('./routes/postsRoutes');
+const usersRouter = require('./routes/usersRoutes');
 
 
 const helmet = require('helmet');
@@ -47,5 +48,6 @@ app.use(apiVersion+'/messages', messagesRouter);
 app.use(apiVersion+'/departments', departmentsRouter);
 app.use(apiVersion+'/breeds', breedsRouter);
 app.use(apiVersion+'/posts', postsRouter);
+app.use(apiVersion+'/users', usersRouter);
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})
