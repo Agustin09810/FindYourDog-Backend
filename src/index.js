@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 const zonesRouter = require('./routes/zonesRoutes');
+const chatsRouter = require('./routes/chatsRoutes');
 
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -36,6 +37,7 @@ app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}
 const apiVersion = '/api/v1';
 
 app.use(apiVersion+'/zones', zonesRouter);
+app.use(apiVersion+'/chats', chatsRouter);
 
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})
