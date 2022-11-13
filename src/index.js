@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const zonesRouter = require('./routes/zonesRoutes');
 const chatsRouter = require('./routes/chatsRoutes');
+const messagesRouter = require('./routes/messagesRoutes');
 
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -38,6 +39,7 @@ const apiVersion = '/api/v1';
 
 app.use(apiVersion+'/zones', zonesRouter);
 app.use(apiVersion+'/chats', chatsRouter);
+app.use(apiVersion+'/messages', messagesRouter);
 
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})
