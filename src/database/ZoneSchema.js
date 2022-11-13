@@ -1,22 +1,23 @@
 const mongoose = require('mongoose');
 
 
-const postSchema = mongoose.Schema({
+const zoneSchema = mongoose.Schema({
     id: {
         type: String,
         required: true
     },
-    userId: {
+    name: {
         type: String,
         required: true
     },
-    postImg:{
-        id:{type: String}, url:{type:String}
+    imgId:{
+        type: String,
+        required: true
     },
-    tags:{
+    postsIds:{
         type: [String],
         required: true
     }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Zone', zoneSchema);

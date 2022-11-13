@@ -2,8 +2,7 @@ const express = require('express');
 
 const cors = require('cors');
 
-const v1PostsRouter = require('./v1/routes/postsRoutes');
-const v1UsersRouter = require('./v1/routes/usersRoutes');
+const zonesRouter = require('./routes/zonesRoutes');
 
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -34,9 +33,9 @@ app.use(express.json({limit: '50mb'}));//bodyparser, en resumen toca un poco la 
 app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 //el usar la ruta asi me permite que en las routes pueda poner rutas sin depender de la version.
 
-app.use('/api/v1/posts', v1PostsRouter);
+const apiVersion = '/api/v1';
 
-app.use('/api/v1/users', v1UsersRouter);
+app.use(apiVersion+'/zones', zonesRouter);
 
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})
