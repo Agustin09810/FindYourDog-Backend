@@ -9,12 +9,12 @@ const departmentsRouter = require('./routes/departmentsRoutes');
 const breedsRouter = require('./routes/breedsRoutes');
 const postsRouter = require('./routes/postsRoutes');
 const usersRouter = require('./routes/usersRoutes');
-
+const imagesRouter = require('./routes/imagesRoutes');
 
 const helmet = require('helmet');
 const morgan = require('morgan');
+const fileUpload = require ('express-fileupload');
 require('dotenv').config();
-
 
 
 const mongoose = require('mongoose');
@@ -28,6 +28,10 @@ app.use(cors());
 
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmpImages/'
+}));
 
 const PORT = process.env.PORT || 3000;
 mongoose.connect(
@@ -49,5 +53,6 @@ app.use(apiVersion+'/departments', departmentsRouter);
 app.use(apiVersion+'/breeds', breedsRouter);
 app.use(apiVersion+'/posts', postsRouter);
 app.use(apiVersion+'/users', usersRouter);
+app.use(apiVersion+'/images', imagesRouter);
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})
