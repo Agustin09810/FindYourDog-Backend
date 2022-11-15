@@ -22,22 +22,20 @@ const getImageById = async (req, res) => {
 }
 
 const uploadImage = async (req, res) => {
-
-
-    if(!req.files.image){
+    if(!req.body.url){
         res.send({status:"FAILED", error:"Bad request"}).status(400);
         return;
     }
-    const image = req.files.image;
+    
+    const image = req.body.url;
     try {
-        const result = await uploadImageCloudinary(image.tempFilePath);
+        const result = await uploadImageCloudinary(image);
         console.log(result);
         const imageToUpload = {
             id: result.public_id.substring(7),
             url: result.secure_url,
         }
         const returnedImage = await images.uploadImage(imageToUpload);
-        await fs.unlink(image.tempFilePath);
         return res.send(returnedImage).status(200);
     } catch (error) {
         console.log(error);

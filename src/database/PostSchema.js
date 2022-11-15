@@ -35,11 +35,11 @@ const PostSchema = new mongoose.Schema({
     },
     lostDescription: {
         type: String,
-        required: true
+        required: false
     },
     dogDescription: {
         type: String,
-        required: true
+        required: false
     },
     photos: {
         type: [String],
