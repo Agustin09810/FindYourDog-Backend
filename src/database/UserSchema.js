@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contactsIds: {
+    contactsUsernames: {
         type: [String],
         required: true
     },
