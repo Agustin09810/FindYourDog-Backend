@@ -23,6 +23,7 @@ const getImageById = async (req, res) => {
 
 const uploadImage = async (req, res) => {
 
+
     if(!req.files.image){
         res.send({status:"FAILED", error:"Bad request"}).status(400);
         return;

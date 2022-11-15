@@ -45,4 +45,26 @@ const updateUserByUsername = async (req, res) => {
     }
 }
 
-module.exports = { getUserByUsername, updateUserByUsername };
+const getUserById = async (req, res) => {
+    const id = req.params['id'];
+    if(!id){
+        res.send({status:"FAILED", error:"Bad Request"}).status(400);
+        return;
+    }
+    try {
+        const returnedUser = await users.getUserById(id);
+        if(returnedUser == null){
+            res.status(404).send({status:"FAILED", error:"User not found"});
+            return;
+        }else{
+            res.send(returnedUser).status(200);
+            return;
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status:"FAILED", error:error.message || 'reading error'});
+        return;
+    }
+}
+
+module.exports = { getUserByUsername, updateUserByUsername, getUserById };

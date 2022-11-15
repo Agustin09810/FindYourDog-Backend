@@ -18,4 +18,13 @@ const updateUserByUsername = async (username, body) => {
     }
 };
 
-module.exports = { getUserByUsername, updateUserByUsername };
+const getUserById = async (id) => {
+    try {
+        const dataToReturn = await userSchema.findOne({'id':id});
+        return dataToReturn;
+    } catch (error) {
+        throw {status:500, message: error?.message || error, type:'server error'};
+    }
+};
+
+module.exports = { getUserByUsername, updateUserByUsername, getUserById };
