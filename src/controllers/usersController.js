@@ -27,7 +27,7 @@ const updateUserByUsername = async (req, res) => {
     if(!username){
         res.send({status:"FAILED", error:"Bad Request"}).status(400);
         return;
-    }else if(!req.body.username || !req.body.password || !req.body.contactsIds || !req.body.chatsIds || !req.body.profileImg || !req.body.postsIds || !req.body.departmentId){
+    }else if(!req.body.username || !req.body.password || !req.body.contactsUsernames|| !req.body.chatsIds || !req.body.profileImg || !req.body.postsIds || !req.body.departmentId){
         res.send({status:"FAILED", error:"some field is missing"}).status(400);
         return;
     }

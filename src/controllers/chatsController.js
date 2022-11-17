@@ -36,7 +36,7 @@ const createChat = async (req, res) => {
             res.status(404).send({status:"FAILED", error:"Chat not found"});
             return;
         }else{
-            res.send({status:"OK", messae:"Created"}).status(200);
+            res.send(returnedChat).status(200);
             return;
         }
     } catch (error) {
