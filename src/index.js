@@ -10,6 +10,7 @@ const breedsRouter = require('./routes/breedsRoutes');
 const postsRouter = require('./routes/postsRoutes');
 const usersRouter = require('./routes/usersRoutes');
 const imagesRouter = require('./routes/imagesRoutes');
+const authRouter = require('./routes/authRoutes');
 
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -45,14 +46,16 @@ app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}
 //el usar la ruta asi me permite que en las routes pueda poner rutas sin depender de la version.
 
 const apiVersion = '/api/v1';
+const {authValidate} = require('./middlewares/auth');
 
-app.use(apiVersion+'/zones', zonesRouter);
-app.use(apiVersion+'/chats', chatsRouter);
-app.use(apiVersion+'/messages', messagesRouter);
-app.use(apiVersion+'/departments', departmentsRouter);
-app.use(apiVersion+'/breeds', breedsRouter);
-app.use(apiVersion+'/posts', postsRouter);
-app.use(apiVersion+'/users', usersRouter);
-app.use(apiVersion+'/images', imagesRouter);
+app.use(apiVersion+'/zones', authValidate, zonesRouter);
+app.use(apiVersion+'/chats', authValidate,chatsRouter);
+app.use(apiVersion+'/messages', authValidate, messagesRouter);
+app.use(apiVersion+'/departments', authValidate, departmentsRouter);
+app.use(apiVersion+'/breeds', authValidate, breedsRouter);
+app.use(apiVersion+'/posts', authValidate, postsRouter);
+app.use(apiVersion+'/users', authValidate, usersRouter);
+app.use(apiVersion+'/login', authRouter);
+app.use(apiVersion+'/images', authValidate, imagesRouter);
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})

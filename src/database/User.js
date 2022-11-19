@@ -27,4 +27,30 @@ const getUserById = async (id) => {
     }
 };
 
-module.exports = { getUserByUsername, updateUserByUsername, getUserById };
+const loginUser = async (usernamex, passwordx, req, res) => {
+    console.log(usernamex);
+    const username = usernamex;
+    const password = passwordx;
+    if(!username || !password){
+        return false;
+    }
+    try {
+        const returnedUser = await getUserByUsername(username);
+        if(returnedUser == null){
+            return null;
+        }else{
+            if(returnedUser.password == password){
+                return returnedUser;
+            }else{
+                return null;
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({status:"FAILED", error:error.message || 'reading error'});
+        return;
+    }
+}
+            
+
+module.exports = { getUserByUsername, updateUserByUsername, getUserById, loginUser };
