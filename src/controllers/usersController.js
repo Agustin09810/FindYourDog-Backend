@@ -112,13 +112,13 @@ const loginUser = async (req, res) => {
         }else{
             const jwtBearerToken = jsonwebToken.sign({}, RSA_PRIVATE_KEY, {
                 algorithm: 'RS256',
-                expiresIn: '2h',
+                expiresIn: 10000,
                 subject: returnedUser.username
               })
           
               res.status(200).json({
                 idToken: jwtBearerToken,
-                expiresIn: '2h'
+                expiresIn: 10000
               });
         }
     }catch(error){
