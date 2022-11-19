@@ -11,7 +11,9 @@ const getUserByUsername = async (username) => {
 
 const updateUserByUsername = async (username, body) => {
     try {
+        console.log(username + "hola2");
         const dataToReturn = await userSchema.findOneAndUpdate({'username':username}, body);
+        console.log(dataToReturn + "adios");
         return dataToReturn;
     } catch (error) {
         throw {status:500, message: error?.message || error, type:'server error'};
