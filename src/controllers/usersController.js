@@ -97,7 +97,7 @@ const getUserById = async (req, res) => {
     }
 }
 
-const RSA_PRIVATE_KEY = fs.readFileSync('src/keys/rsa_private.pem');
+const RSA_PRIVATE_KEY = fs.readFileSync('src/keys-1/rsa_private.pem');
 
 const loginUser = async (req, res) => {
     if(!req.body.username || !req.body.password){

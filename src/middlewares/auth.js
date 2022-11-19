@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const jsonwebtoken = require('jsonwebtoken');
 
-const RSA_PUBLIC_KEY = fs.readFileSync('src/keys/rsa_public.pem');
+const RSA_PUBLIC_KEY = fs.readFileSync('src/keys-1/rsa_public.pem');
 
 
 function authValidate (req, res, next) {
