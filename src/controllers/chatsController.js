@@ -1,4 +1,5 @@
 const chats = require("../database/Chat");
+const { v4: uuidv4 } = require('uuid');
 
 const getChatById = async (req, res) => {
     const chatId = req.params['chatId'];
@@ -31,6 +32,7 @@ const createChat = async (req, res) => {
     }
 
     try {
+        req.body.id = uuidv4();
         const returnedChat = await chats.createChat(req.body);
         if(returnedChat == null){
             res.status(404).send({status:"FAILED", error:"Chat not found"});
