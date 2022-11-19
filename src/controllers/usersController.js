@@ -53,7 +53,7 @@ const getUser = async (req, res) => {
 }
 
 const updateUserByUsername = async (req, res) => {
-    const username = req.userData.sub;
+    const username = req.params['username'];
     if(!username){
         res.send({status:"FAILED", error:"Bad Request"}).status(400);
         return;
@@ -62,6 +62,7 @@ const updateUserByUsername = async (req, res) => {
         return;
     }
     try{
+        console.log(username + "hola");
         const returnedUser = await users.updateUserByUsername(username, req.body);
         if(returnedUser == null){
             res.status(404).send({status:"FAILED", error:"User not found"});
@@ -105,7 +106,6 @@ const loginUser = async (req, res) => {
         return;
     }
     try{
-        console.log(req.body.username + 'xd');
         const returnedUser = await users.loginUser(req.body.username, req.body.password, req, res);
         if(returnedUser == null){
             res.status(404).send({status:"FAILED", error:"User not found"});

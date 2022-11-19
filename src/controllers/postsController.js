@@ -27,7 +27,6 @@ const createPost = async (req, res) => {
         return;
     }
     try {
-        req.body.user = req.userData.username;
         const returnedPost = await posts.createPost(req.body);
         if(returnedPost == null){
             res.status(500).send({status:"FAILED", error:"Cant post"});
