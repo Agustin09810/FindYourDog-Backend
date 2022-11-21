@@ -1,4 +1,5 @@
 const posts = require('../database/Post');
+const { v4: uuidv4 } = require('uuid');
 
 const getPostById = async (req, res) => {
     const postId = req.params['postId'];
@@ -7,6 +8,7 @@ const getPostById = async (req, res) => {
     }
 
     try {
+        req.body.id = uuidv4();
         const returnedPost = await posts.getPostById(postId);
         if(returnedPost == null){
             res.status(404).send({status:"FAILED", error:"Post not found"});
