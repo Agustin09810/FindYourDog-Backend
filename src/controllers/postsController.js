@@ -29,6 +29,7 @@ const createPost = async (req, res) => {
         return;
     }
     try {
+        req.body.id = uuidv4();
         const returnedPost = await posts.createPost(req.body);
         if(returnedPost == null){
             res.status(500).send({status:"FAILED", error:"Cant post"});

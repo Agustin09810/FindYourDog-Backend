@@ -1,6 +1,7 @@
 const postSchema = require('./PostSchema');
 
 const getPostById = async (id) => {
+    console.log(id);
     try {
         const dataToReturn = await postSchema.findOne({'id':id});
         return dataToReturn;

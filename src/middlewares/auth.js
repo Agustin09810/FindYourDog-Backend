@@ -14,7 +14,6 @@ function authValidate (req, res, next) {
                 return res.status(401).json({
                     message: 'Auth failed'
                 });
-
             }
             req.userData = decoded;
             next();

@@ -51,7 +51,7 @@ const {authValidate} = require('./middlewares/auth');
 app.use(apiVersion+'/zones', authValidate, zonesRouter);
 app.use(apiVersion+'/chats', authValidate,chatsRouter);
 app.use(apiVersion+'/messages', authValidate, messagesRouter);
-app.use(apiVersion+'/departments', authValidate, departmentsRouter);
+app.use(apiVersion+'/departments', departmentsRouter);
 app.use(apiVersion+'/breeds', authValidate, breedsRouter);
 app.use(apiVersion+'/posts', authValidate, postsRouter);
 app.use(apiVersion+'/users', authValidate, usersRouter);
