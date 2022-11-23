@@ -56,6 +56,8 @@ app.use(apiVersion+'/breeds', authValidate, breedsRouter);
 app.use(apiVersion+'/posts', authValidate, postsRouter);
 app.use(apiVersion+'/users', authValidate, usersRouter);
 app.use(apiVersion+'/login', authRouter);
+app.use(apiVersion+'/confirm', authRouter);
+app.use(apiVersion+'/signup', authRouter);
 app.use(apiVersion+'/images', authValidate, imagesRouter);
 
 app.listen(PORT, () => {console.log('server listening on port ' + PORT)})

@@ -71,7 +71,7 @@ const verifyUser = async (usernamex, passwordx, emailx, departmentx, req, res) =
     }
 }
 
-const createUser = async (username, email, password, departmentId) => {
+const createUser = async (username, email, password, departmentId, confirmationCode) => {
     try {
         const user = new userSchema(
             {
@@ -83,6 +83,8 @@ const createUser = async (username, email, password, departmentId) => {
                 chatsIds: [],
                 profileImg: "defaultImage",
                 postsIds: [],
+                status: "Pending",
+                confirmationCode: confirmationCode
             }
         );
         const dataToReturn = await user.save().then((data) => { return data;}).catch((error) => {throw {status:500, message: error?.message || error, type:'server error'}});
@@ -90,7 +92,17 @@ const createUser = async (username, email, password, departmentId) => {
     } catch (error) {
         throw {status:500, message: error?.message || error, type:'server error'};
     }
-}  
+} 
+
+const verifyMail = async (confirmationCode) => {
+    try {
+        const dataToReturn = await userSchema.findOneAndUpdate({'confirmationCode':confirmationCode}, {status: "Active"});
+        return dataToReturn;
+    } catch (error) {
+        throw {status:500, message: error?.message || error, type:'server error'};
+    }
+}
+
 
             
 
@@ -100,4 +112,4 @@ const createUser = async (username, email, password, departmentId) => {
 
             
 
-module.exports = { getUserByUsername, updateUserByUsername, getUserById, loginUser, verifyUser, createUser };
+module.exports = { getUserByUsername, updateUserByUsername, getUserById, loginUser, verifyUser, createUser, verifyMail };

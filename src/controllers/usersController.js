@@ -1,4 +1,5 @@
 const users = require('../database/User');
+const mailer = require('../utils/mailer');
 const bcrypt = require('bcrypt');
 const jsonwebToken = require('jsonwebtoken');
 const fs = require('fs');
@@ -111,6 +112,9 @@ const loginUser = async (req, res) => {
         if(returnedUser == null){
             res.status(404).send({status:"FAILED", error:"Authentication failed"});
         }else{
+            if (returnedUser.status != "Active") {
+                return res.status(401).send({status:"FAILED", error:"User not verified"});
+            }
             if(bcrypt.compareSync(req.body.password, returnedUser.password)){
                 const jwtBearerToken = jsonwebToken.sign({}, RSA_PRIVATE_KEY, {
                     algorithm: 'RS256',
@@ -141,14 +145,16 @@ const createUser = async (req, res) => {
     try{
         const canCreate = await users.verifyUser(req.body.username, req.body.password, req.body.email, req.body.departmentId);
         if(canCreate == false){
-            res.status(409).send({status:"FAILED", error:"User already exists"});
+            return res.status(409).send({status:"FAILED", error:"User already exists"});
         }else{
             req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-            const returnedUser = await users.createUser(req.body.username, req.body.email, req.body.password, req.body.departmentId);
+            const confirmationCode =  jsonwebToken.sign({email: req.body.email}, RSA_PRIVATE_KEY)
+            const returnedUser = await users.createUser(req.body.username, req.body.email, req.body.password, req.body.departmentId, confirmationCode);
             if(returnedUser == null){
-                res.status(500).send({status:"FAILED", error:"Cant create user"});
+                return res.status(500).send({status:"FAILED", error:"Cant create user"});
             }else{
-                res.send(returnedUser).status(200);
+                mailer.sendConfirmationEmail(req.body.email, confirmationCode);
+                return res.send(returnedUser).status(200);
             }
         }
     }catch(error){
@@ -158,5 +164,24 @@ const createUser = async (req, res) => {
     }
 }
 
+const verifyMail = async (req, res) => {
+    const token = req.params['token'];
+    if(!token){
+        res.send({status:"FAILED", error:"Bad Request"}).status(400);
+        return;
+    }
+    try{
+        const user = await users.verifyMail(token);
+        if(user == null){
+            res.status(404).send({status:"FAILED", error:"User not found"});
+        }else{
+            res.send(user).status(200);
+        }
+    }catch(error){
+        console.log(error);
+        res.status(500).send({status:"FAILED", error:error.message || 'reading error'});
+        return;
+    }
+}
 
-module.exports = { getUserByUsername, updateUserByUsername, getUserById, loginUser, getUser, createUser };
+module.exports = { getUserByUsername, updateUserByUsername, getUserById, loginUser, getUser, createUser, verifyMail };
