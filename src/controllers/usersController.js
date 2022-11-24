@@ -64,7 +64,6 @@ const updateUserByUsername = async (req, res) => {
         return;
     }
     try{
-        console.log(username + "hola");
         const returnedUser = await users.updateUserByUsername(username, req.body);
         if(returnedUser == null){
             res.status(404).send({status:"FAILED", error:"User not found"});
@@ -104,16 +103,16 @@ const RSA_PRIVATE_KEY = fs.readFileSync('src/keys-1/rsa_private.pem');
 
 const loginUser = async (req, res) => {
     if(!req.body.username || !req.body.password){
-        res.send({status:"FAILED", error:"some field is missing"}).status(400);
+        res.status(400).send({status:"FAILED", error:"some field is missing"});
         return;
     }
     try{
         const returnedUser = await users.loginUser(req.body.username, req, res);
         if(returnedUser == null){
-            res.status(404).send({status:"FAILED", error:"Authentication failed"});
+            return res.status(404).send({status:"FAILED", error:"Authentication failed"});
         }else{
             if (returnedUser.status != "Active") {
-                return res.status(401).send({status:"FAILED", error:"User not verified"});
+                return res.status(401).send({status:"FAILED", error:"User not verified. Check Mail"});
             }
             if(bcrypt.compareSync(req.body.password, returnedUser.password)){
                 const jwtBearerToken = jsonwebToken.sign({}, RSA_PRIVATE_KEY, {
@@ -128,7 +127,7 @@ const loginUser = async (req, res) => {
                 });
             }
             else{
-                res.status(401).send({status:"FAILED", error:"Authentication failed"});
+                return res.status(401).send({status:"FAILED", error:"Authentication failed"});
             }
         }
     }catch(error){
