@@ -92,7 +92,18 @@ const updateUserByUsername = async (req, res) => {
         if(returnedUser == null){
             res.status(404).send({status:"FAILED", error:"User not found"});
         }else{
-            res.send(returnedUser).status(200);
+            returnedUserWithOutPassword = {
+                username: returnedUser.username,
+                contactsUsernames: returnedUser.contactsUsernames,
+                email: returnedUser.email,
+                postsIds: returnedUser.postsIds,
+                chatsIds: returnedUser.chatsIds,
+                profileImg: returnedUser.profileImg,
+                departmentId: returnedUser.departmentId,
+                status: returnedUser.status,
+                confirmationCode: returnedUser.confirmationCode
+            };
+            res.send(returnedUserWithOutPassword).status(200);
         }
     }catch(error){
         console.log(error);
