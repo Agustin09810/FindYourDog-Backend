@@ -23,7 +23,7 @@ const sendConfirmationEmail = async (email, confirmationCode) => {
             subject: 'Por favor, confirma tu cuenta de FYD',
             html: `<h1>Por favor, confirma tu cuenta de FYD</h1>
                    <p>Para confirmar tu cuenta, por favor, haz click en el siguiente enlace:</p>
-                    <a href="http://localhost:4200/confirm/${confirmationCode}">Confirmar cuenta</a>`
+                    <a href="https://fyd.azurewebsites.net/confirm/${confirmationCode}">Confirmar cuenta</a>`
         });
     } catch (error) {
         console.log('xdnt');

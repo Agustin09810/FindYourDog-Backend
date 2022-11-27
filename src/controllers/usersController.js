@@ -2,7 +2,8 @@ const users = require('../database/User');
 const mailer = require('../utils/mailer');
 const bcrypt = require('bcrypt');
 const jsonwebToken = require('jsonwebtoken');
-const fs = require('fs');
+
+require('dotenv').config();
 
 const getUserByUsername = async (req, res) => {
 
@@ -145,7 +146,10 @@ const getUserById = async (req, res) => {
     }
 }
 
-const RSA_PRIVATE_KEY = fs.readFileSync('src/keys-1/rsa_private.pem');
+let RSA_PRIVATE_KEY = process.env.PRIVATE_KEY.replaceAll(' ', '\n');
+let begin = '-----BEGIN PRIVATE KEY-----\n';
+let end = '\n-----END PRIVATE KEY-----';
+RSA_PRIVATE_KEY = begin + RSA_PRIVATE_KEY + end;
 
 const loginUser = async (req, res) => {
     if(!req.body.username || !req.body.password){
