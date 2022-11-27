@@ -198,7 +198,7 @@ const createUser = async (req, res) => {
             if(returnedUser == null){
                 return res.status(500).send({status:"FAILED", error:"Cant create user"});
             }else{
-                mailer.sendConfirmationEmail(req.body.email, confirmationCode);
+                await mailer.sendConfirmationEmail(req.body.email, confirmationCode);
                 return res.send(returnedUser).status(200);
             }
         }
