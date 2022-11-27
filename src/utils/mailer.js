@@ -23,10 +23,9 @@ const sendConfirmationEmail = async (email, confirmationCode) => {
             subject: 'Por favor, confirma tu cuenta de FYD',
             html: `<h1>Por favor, confirma tu cuenta de FYD</h1>
                    <p>Para confirmar tu cuenta, por favor, haz click en el siguiente enlace:</p>
-                    <a href="https://fyd.azurewebsites.net/confirm/${confirmationCode}">Confirmar cuenta</a>`
+                    <a href="https://mango-forest-05df0a410.2.azurestaticapps.net/confirm/${confirmationCode}">Confirmar cuenta</a>`
         });
     } catch (error) {
-        console.log('xdnt');
         throw {status: 500, message: error?.message || error, type: 'server error'};
     }
 }
