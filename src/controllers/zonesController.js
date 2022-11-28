@@ -10,7 +10,6 @@ const getZones = async (req, res) => {
         console.log(error);
         res.send({status:"FAILED", error:error.message || 'reading error'})
     }
-    
   }
 
 const getZoneById = async (req, res) => {
@@ -18,7 +17,6 @@ const getZoneById = async (req, res) => {
     if(!zoneId){
         res.send({status:"FAILED", error:"Zone not found"}).status(400);
     }
-
     try {
         const returnedZone = await zones.getZoneById(zoneId);
         if(returnedZone == null){
