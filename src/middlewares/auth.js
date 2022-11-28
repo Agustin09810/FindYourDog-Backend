@@ -1,4 +1,5 @@
-require('dotenv').config();
+const fs = require('fs');
+
 const jsonwebtoken = require('jsonwebtoken');
 
 const RSA_PUBLIC_KEY = fs.readFileSync('src/keys-1/rsa_public.pem');

@@ -26,7 +26,6 @@ const sendConfirmationEmail = async (email, confirmationCode) => {
                     <a href="http://localhost:4200/confirm/${confirmationCode}">Confirmar cuenta</a>`
         });
     } catch (error) {
-        console.log('xdnt');
         throw {status: 500, message: error?.message || error, type: 'server error'};
     }
 }
