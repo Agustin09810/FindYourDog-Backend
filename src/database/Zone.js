@@ -6,7 +6,6 @@ const getAllZones = async () => {
         console.log(dataToReturn);
         return dataToReturn;
     } catch (error) {
-        console.log('salte aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
         
@@ -18,7 +17,6 @@ const getZoneById = async (id) => {
         console.log(dataToReturn);
         return dataToReturn;
     } catch (error) {
-        console.log('salte aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
 }
@@ -30,7 +28,6 @@ const updateZoneById = async (id, body) => {
         console.log(dataToReturn);
         return dataToReturn;
     } catch (error) {
-        console.log('salte aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
 
