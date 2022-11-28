@@ -5,7 +5,6 @@ const getMessageById = async (id) => {
         const dataToReturn = await MessageSchema.findOne({'id':id});
         return dataToReturn;
     } catch (error) {
-        console.log('aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
 };

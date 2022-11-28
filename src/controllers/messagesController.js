@@ -17,7 +17,7 @@ const getMessageById = async (req, res) => {
             return;
         }
     } catch (error) {
-        console.log(error + 'aca XDDD');
+        console.log(error)
         res.status(500).send({status:"FAILED", error: 'reading error'});
 
     }

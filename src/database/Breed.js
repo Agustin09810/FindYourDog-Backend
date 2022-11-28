@@ -6,7 +6,6 @@ const getAllBreeds = async () => {
         console.log(dataToReturn);
         return dataToReturn;
     } catch (error) {
-        console.log('salte aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
 }
@@ -17,7 +16,6 @@ const getBreedsByName = async (name) => {
         console.log(dataToReturn);
         return dataToReturn;
     } catch (error) {
-        console.log('salte aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
 }
@@ -29,7 +27,6 @@ const getBreedById = async (id) => {
         console.log(dataToReturn);
         return dataToReturn;
     } catch (error) {
-        console.log('salte aca');
         throw {status:500, message: error?.message || error, type:'server error'};
     }
 }
