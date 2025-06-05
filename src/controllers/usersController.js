@@ -146,10 +146,14 @@ const getUserById = async (req, res) => {
     }
 }
 
-let RSA_PRIVATE_KEY = process.env.PRIVATE_KEY.replaceAll(' ', '\n');
-let begin = '-----BEGIN PRIVATE KEY-----\n';
-let end = '\n-----END PRIVATE KEY-----';
-RSA_PRIVATE_KEY = begin + RSA_PRIVATE_KEY + end;
+let RSA_PRIVATE_KEY = process.env.PRIVATE_KEY;
+
+if (RSA_PRIVATE_KEY) {
+    RSA_PRIVATE_KEY = RSA_PRIVATE_KEY
+        .replace(/-----BEGINPRIVATEKEY-----/g, '-----BEGIN PRIVATE KEY-----')
+        .replace(/-----ENDPRIVATEKEY-----/g, '-----END PRIVATE KEY-----')
+        .replace(/\\n/g, '\n');
+}
 
 const loginUser = async (req, res) => {
     if(!req.body.username || !req.body.password){

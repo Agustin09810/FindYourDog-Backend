@@ -1,11 +1,15 @@
 require('dotenv').config();
 const jsonwebtoken = require('jsonwebtoken');
 
-let RSA_PUBLIC_KEY = process.env.PUBLIC_KEY.replace(' ', '\n');
-let begin = '-----BEGIN PUBLIC KEY-----\n';
-let end = '\n-----END PUBLIC KEY-----';
-RSA_PUBLIC_KEY = begin + RSA_PUBLIC_KEY + end;
+// Fix RSA public key processing
+let RSA_PUBLIC_KEY = process.env.PUBLIC_KEY;
 
+if (RSA_PUBLIC_KEY) {
+    RSA_PUBLIC_KEY = RSA_PUBLIC_KEY
+        .replace(/-----BEGINPUBLICKEY-----/g, '-----BEGIN PUBLIC KEY-----')
+        .replace(/-----ENDPUBLICKEY-----/g, '-----END PUBLIC KEY-----')
+        .replace(/\\n/g, '\n');
+}
 
 function authValidate (req, res, next) {
     if (req.headers.authorization) {
